@@ -38,6 +38,7 @@ public class addMember extends HttpServlet {
             String name = request.getParameter("txtMemberName");
             ServletContext context = request.getServletContext();
             Raid raid = (Raid) context.getAttribute("raid");
+            String errmsg = "";
             if (raid == null) {
                 raid = new Raid();
             }
@@ -48,9 +49,15 @@ public class addMember extends HttpServlet {
                         raid.getMembers().add(mem);
                         context.setAttribute("raid", raid);
                     }
+                } else {
+                    errmsg = "Exceed maximum quantity!";
                 }
+            } else {
+                errmsg = "Please enter member's name!";
             }
-            response.sendRedirect("new-raid.jsp");
+           
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
         }
     }
 

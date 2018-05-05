@@ -75,4 +75,13 @@ public class Member implements Serializable {
         convertedMem.setTotalShare(aMem.getTotalShare());
         return convertedMem;
     }
+
+    public static JAXBObj.Member parseToJAXB(Member aMem) {
+        JAXBObj.Member convertedMem = new JAXBObj.Member();
+        convertedMem.setId(aMem.getId());
+        convertedMem.setName(aMem.getName());
+        convertedMem.setTotalBid(aMem.getTotalBid());
+        convertedMem.setTotalShare(aMem.getTotalShare());
+        return convertedMem;
+    }
 }

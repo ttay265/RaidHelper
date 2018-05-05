@@ -20,6 +20,10 @@
         <servlet-name>Upload</servlet-name>
         <servlet-class>Servlets.Upload</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Download</servlet-name>
+        <servlet-class>Servlets.Download</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
         <url-pattern>/ProcessServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>Upload</servlet-name>
         <url-pattern>/Upload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Download</servlet-name>
+        <url-pattern>/Download</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

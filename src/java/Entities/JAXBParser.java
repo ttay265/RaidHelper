@@ -6,8 +6,10 @@
 package Entities;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -17,6 +19,7 @@ import java.util.logging.Logger;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
@@ -32,18 +35,25 @@ public class JAXBParser implements Serializable {
 
     public static File XMLtoFile(InputStream is) {
         OutputStream outputStream = null;
+        File file = new File("temp.xml");
         try {
-            File file = new File("/temp.xml");
             outputStream = new FileOutputStream(file);
-            IOUtils.copy(is, outputStream);
-            outputStream.close();
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = is.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(JAXBParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(JAXBParser.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
+                is.close();
                 outputStream.close();
+                return file;
             } catch (IOException ex) {
                 Logger.getLogger(JAXBParser.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -81,5 +91,18 @@ public class JAXBParser implements Serializable {
 
         }
         return false;
+    }
+
+    public static File exportToXML(JAXBObj.Raid raid) {
+        File os = null;
+        try {
+            JAXBContext context = JAXBContext.newInstance(JAXBObj.Raid.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.marshal(raid, os);
+            return os;
+        } catch (JAXBException ex) {
+            Logger.getLogger(JAXBParser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

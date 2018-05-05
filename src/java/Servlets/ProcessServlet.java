@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ttay2
  */
-
 public class ProcessServlet extends HttpServlet {
 
     /**
@@ -51,12 +50,13 @@ public class ProcessServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("addBid");
                 rd.forward(request, response);
             }
-//            if (action.equals("uploadFile")) {
-//                RequestDispatcher rd = request.getRequestDispatcher("addBid");
-//                rd.forward(request, response);
-//            }
+            if (action.equals("uploadFile")) {
+                RequestDispatcher rd = request.getRequestDispatcher("Upload");
+                rd.forward(request, response);
+            }
 
         } catch (Exception e) {
+            e.getStackTrace();
         }
 
     }

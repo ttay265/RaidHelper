@@ -56,7 +56,8 @@ public class addBid extends HttpServlet {
                     //return error message
                 }
             }
-            response.sendRedirect("new-raid.jsp");
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
         }
     }
 

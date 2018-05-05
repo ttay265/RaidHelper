@@ -79,14 +79,31 @@ public class Raid implements Serializable {
     }
 
     public static Raid parseFromJAXB(JAXBObj.Raid aRaid) {
-        Date crDate = aRaid.getCreatedDate().toGregorianCalendar().getTime();
         Raid convertedRaid = new Raid();
-
+        if (aRaid.getCreatedDate() != null) {
+            Date crDate = aRaid.getCreatedDate().toGregorianCalendar().getTime();
+            convertedRaid.setCreatedDate(crDate);
+        }
         List<Member> members = new ArrayList<>();
-        for (JAXBObj.Member m : aRaid.getMember()) {
+        List<JAXBObj.Member> uncvMemList = aRaid.getMember();
+        for (JAXBObj.Member m : uncvMemList) {
             members.add(Member.parseFromJAXB(m));
         }
-        convertedRaid.setCreatedDate(crDate);
+        convertedRaid.setMembers(members);
+        return convertedRaid;
+    }
+
+    public static JAXBObj.Raid parseToJAXB(Raid aRaid) {
+        JAXBObj.Raid convertedRaid = new JAXBObj.Raid();
+//        if (aRaid.getCreatedDate() != null) {
+//            Date crDate = aRaid.getCreatedDate().toGregorianCalendar().getTime();
+//            convertedRaid.setCreatedDate(crDate);
+//        }
+        List<JAXBObj.Member> members = convertedRaid.getMember();
+        List<Member> uncvMemList = aRaid.getMembers();
+        for (Member m : uncvMemList) {
+            members.add(Member.parseToJAXB(m));
+        }
         return convertedRaid;
     }
 }
