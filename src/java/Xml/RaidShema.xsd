@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <xs:element name="raid">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="member" type="Member"/>
+            </xs:sequence>
+            <xs:attribute name="createdDate"  type="xs:dateTime"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Member">
+        <xs:sequence>
+            <xs:element name="name"  type="xs:string"/>
+            <xs:element name="totalBid"  type="xs:float"/>
+            <xs:element name="totalShare"  type="xs:float"/>
+        </xs:sequence>
+        <xs:attribute name="id"  type="xs:int"/>
+    </xs:complexType>
+    
+    <xs:element name="share">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bidder"  type="xs:string"/>
+                <xs:element name="loot"  type="xs:float"/>
+                <xs:element name="amount"  type="xs:float"/>
+            </xs:sequence>
+            <xs:attribute name="raidId"  type="xs:int"/>
+            <xs:attribute name="id"  type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
